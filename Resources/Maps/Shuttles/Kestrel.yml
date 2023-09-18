@@ -23,7 +23,7 @@ entities:
     components:
     - type: MetaData
     - pos: -1.078125,-0.46875
-      parent: invalid
+      parent: 411
       type: Transform
     - chunks:
         0,0:
@@ -469,6 +469,16 @@ entities:
       type: GridAtmosphere
     - type: GasTileOverlay
     - type: RadiationGridResistance
+  - uid: 411
+    components:
+    - type: MetaData
+    - type: Transform
+    - type: Map
+    - type: PhysicsMap
+    - type: GridTree
+    - type: MovedGrids
+    - type: Broadphase
+    - type: OccluderTree
 - proto: AirCanister
   entities:
   - uid: 294
@@ -2209,7 +2219,8 @@ entities:
     - storage:
         Plasma: 1500
       type: MaterialStorage
-    - type: InsertingMaterialStorage
+    - endTime: 0
+      type: InsertingMaterialStorage
   - uid: 189
     components:
     - pos: -0.5,-6.5
@@ -2218,7 +2229,8 @@ entities:
     - storage:
         Plasma: 1500
       type: MaterialStorage
-    - type: InsertingMaterialStorage
+    - endTime: 0
+      type: InsertingMaterialStorage
 - proto: PosterContrabandVoteWeh
   entities:
   - uid: 297

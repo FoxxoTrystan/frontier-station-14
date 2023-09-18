@@ -15,16 +15,12 @@ using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
-using Robust.Client.UserInterface.CustomControls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Configuration;
-using Robust.Shared.GameObjects;
-using Robust.Shared.IoC;
-using Robust.Shared.Localization;
 using Robust.Shared.Map;
-using Robust.Shared.Maths;
 using Robust.Shared.Prototypes;
 using static Robust.Client.UserInterface.Controls.BoxContainer;
+using Direction = Robust.Shared.Maths.Direction;
 
 namespace Content.Client.Preferences.UI
 {
@@ -186,30 +182,24 @@ namespace Content.Client.Preferences.UI
 
                 var view = new SpriteView
                 {
-                    Sprite = entityManager.GetComponent<SpriteComponent>(_previewDummy),
-                    Scale = new Vector2((float) 1.45, (float) 1.45),
-                    Stretch = SpriteView.StretchMode.None,
-                    MaxSize = new Vector2(46.4f, 46.4f),
+                    Scale = new Vector2(2, 2),
                     OverrideDirection = Direction.South
                 };
+                view.SetEntity(_previewDummy);
 
                 var description = profile.Name;
                 var balance = humanoid?.BankBalance;
-
-
                 var highPriorityJob = humanoid?.JobPriorities.SingleOrDefault(p => p.Value == JobPriority.High).Key;
                 if (highPriorityJob != null)
                 {
                     var jobName = IoCManager.Resolve<IPrototypeManager>().Index<JobPrototype>(highPriorityJob).LocalizedName;
                     description = $"{description}\n{jobName}\n${balance}";
-
                 }
 
                 var descriptionLabel = new Label
                 {
                     Text = description,
                     ClipText = true,
-                    MinSize = new Vector2(180, 0),
                     HorizontalExpand = true
                 };
                 var deleteButton = new Button
@@ -231,15 +221,16 @@ namespace Content.Client.Preferences.UI
                 };
                 deleteButton.OnPressed += _ =>
                 {
+
                     deleteButton.Visible = false;
                     confirmDeleteButton.Visible = true;
+
                 };
 
                 var internalHBox = new BoxContainer
                 {
                     Orientation = LayoutOrientation.Horizontal,
                     HorizontalExpand = true,
-                    MinSize = new Vector2(200, 0),
                     SeparationOverride = 0,
                     Children =
                     {

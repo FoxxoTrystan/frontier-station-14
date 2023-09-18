@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
-using Content.Server.Database.Migrations.Postgres;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Database;
 using Content.Shared.Humanoid;
@@ -15,7 +14,6 @@ using Content.Shared.Preferences;
 using Microsoft.EntityFrameworkCore;
 using Robust.Shared.Enums;
 using Robust.Shared.Network;
-using BackpackPreference = Content.Shared.Preferences.BackpackPreference;
 using Robust.Shared.Utility;
 
 namespace Content.Server.Database
@@ -32,7 +30,6 @@ namespace Content.Server.Database
                 .Include(p => p.Profiles).ThenInclude(h => h.Jobs)
                 .Include(p => p.Profiles).ThenInclude(h => h.Antags)
                 .Include(p => p.Profiles).ThenInclude(h => h.Traits)
-                .Include(p => p.Profiles).ThenInclude(h => h.Loadouts) // Parkstation-Loadouts
                 .AsSingleQuery()
                 .SingleOrDefaultAsync(p => p.UserId == userId.UserId);
 
@@ -75,27 +72,23 @@ namespace Content.Server.Database
                 throw new NotImplementedException();
             }
 
-            var oldProfile = db.DbContext.Profile
-                .Include(p => p.Preference)
-                .Where(p => p.Preference.UserId == userId.UserId)
-                .Include(p => p.Jobs)
-                .Include(p => p.Antags)
-                .Include(p => p.Traits)
-                .Include(p => p.Loadouts) // Parkstation-Loadouts
-                .AsSplitQuery()
-                .SingleOrDefault(h => h.Slot == slot);
+            var entity = ConvertProfiles(humanoid, slot);
 
-            var newProfile = ConvertProfiles(humanoid, slot, oldProfile);
-            if (oldProfile == null)
+            var prefs = await db.DbContext
+                .Preference
+                .Include(p => p.Profiles)
+                .SingleAsync(p => p.UserId == userId.UserId);
+
+            var oldProfile = prefs
+                .Profiles
+                .SingleOrDefault(h => h.Slot == entity.Slot);
+
+            if (oldProfile is not null)
             {
-                var prefs = await db.DbContext
-                    .Preference
-                    .Include(p => p.Profiles)
-                    .SingleAsync(p => p.UserId == userId.UserId);
-
-                prefs.Profiles.Add(newProfile);
+                prefs.Profiles.Remove(oldProfile);
             }
 
+            prefs.Profiles.Add(entity);
             await db.DbContext.SaveChangesAsync();
         }
 
@@ -168,7 +161,6 @@ namespace Content.Server.Database
             var jobs = profile.Jobs.ToDictionary(j => j.JobName, j => (JobPriority) j.Priority);
             var antags = profile.Antags.Select(a => a.AntagName);
             var traits = profile.Traits.Select(t => t.TraitName);
-            var loadouts = profile.Loadouts.Select(l => l.LoadoutName); // Parkstation-Loadouts
 
             var sex = Sex.Male;
             if (Enum.TryParse<Sex>(profile.Sex, true, out var sexVal))
@@ -211,6 +203,7 @@ namespace Content.Server.Database
                 profile.Age,
                 sex,
                 gender,
+                balance,
                 new HumanoidCharacterAppearance
                 (
                     profile.HairName,
@@ -226,14 +219,12 @@ namespace Content.Server.Database
                 jobs,
                 (PreferenceUnavailableMode) profile.PreferenceUnavailable,
                 antags.ToList(),
-                traits.ToList(),
-                loadouts.ToList() // Parkstation-Loadouts
+                traits.ToList()
             );
         }
 
-        private static Profile ConvertProfiles(HumanoidCharacterProfile humanoid, int slot, Profile? profile = null)
+        private static Profile ConvertProfiles(HumanoidCharacterProfile humanoid, int slot)
         {
-            profile ??= new Profile();
             var appearance = (HumanoidCharacterAppearance) humanoid.CharacterAppearance;
             List<string> markingStrings = new();
             foreach (var marking in appearance.Markings)
@@ -242,53 +233,42 @@ namespace Content.Server.Database
             }
             var markings = JsonSerializer.SerializeToDocument(markingStrings);
 
-            profile.CharacterName = humanoid.Name;
-            profile.FlavorText = humanoid.FlavorText;
-            profile.Species = humanoid.Species;
-            profile.Age = humanoid.Age;
-            profile.Sex = humanoid.Sex.ToString();
-            profile.Gender = humanoid.Gender.ToString();
-            profile.BankBalance = humanoid.BankBalance;
-            profile.HairName = appearance.HairStyleId;
-            profile.HairColor = appearance.HairColor.ToHex();
-            profile.FacialHairName = appearance.FacialHairStyleId;
-            profile.FacialHairColor = appearance.FacialHairColor.ToHex();
-            profile.EyeColor = appearance.EyeColor.ToHex();
-            profile.SkinColor = appearance.SkinColor.ToHex();
-            profile.Clothing = humanoid.Clothing.ToString();
-            profile.Backpack = humanoid.Backpack.ToString();
-            profile.Markings = markings;
-            profile.Slot = slot;
-            profile.PreferenceUnavailable = (DbPreferenceUnavailableMode) humanoid.PreferenceUnavailable;
-
-            profile.Jobs.Clear();
-            profile.Jobs.AddRange(
+            var entity = new Profile
+            {
+                CharacterName = humanoid.Name,
+                FlavorText = humanoid.FlavorText,
+                Species = humanoid.Species,
+                Age = humanoid.Age,
+                Sex = humanoid.Sex.ToString(),
+                Gender = humanoid.Gender.ToString(),
+                BankBalance = humanoid.BankBalance,
+                HairName = appearance.HairStyleId,
+                HairColor = appearance.HairColor.ToHex(),
+                FacialHairName = appearance.FacialHairStyleId,
+                FacialHairColor = appearance.FacialHairColor.ToHex(),
+                EyeColor = appearance.EyeColor.ToHex(),
+                SkinColor = appearance.SkinColor.ToHex(),
+                Clothing = humanoid.Clothing.ToString(),
+                Backpack = humanoid.Backpack.ToString(),
+                Markings = markings,
+                Slot = slot,
+                PreferenceUnavailable = (DbPreferenceUnavailableMode) humanoid.PreferenceUnavailable
+            };
+            entity.Jobs.AddRange(
                 humanoid.JobPriorities
                     .Where(j => j.Value != JobPriority.Never)
                     .Select(j => new Job {JobName = j.Key, Priority = (DbJobPriority) j.Value})
             );
-
-            profile.Antags.Clear();
-            profile.Antags.AddRange(
+            entity.Antags.AddRange(
                 humanoid.AntagPreferences
                     .Select(a => new Antag {AntagName = a})
             );
-
-            profile.Traits.Clear();
-            profile.Traits.AddRange(
+            entity.Traits.AddRange(
                 humanoid.TraitPreferences
                         .Select(t => new Trait {TraitName = t})
             );
 
-            // Parkstation-Loadouts-Start
-            profile.Loadouts.Clear();
-            profile.Loadouts.AddRange(
-                humanoid.LoadoutPreferences
-                    .Select(l => new Loadout {LoadoutName = l})
-            );
-            // Parkstation-Loadouts-End
-
-            return profile;
+            return entity;
         }
         #endregion
 
@@ -782,9 +762,12 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({players[player]}, {id}
             await db.DbContext.SaveChangesAsync();
         }
 
-        private static IQueryable<AdminLog> GetAdminLogsQuery(ServerDbContext db, LogFilter? filter = null)
+        protected abstract IQueryable<AdminLog> StartAdminLogsQuery(ServerDbContext db, LogFilter? filter = null);
+
+        private IQueryable<AdminLog> GetAdminLogsQuery(ServerDbContext db, LogFilter? filter = null)
         {
-            IQueryable<AdminLog> query = db.AdminLog;
+            // Save me from SQLite
+            var query = StartAdminLogsQuery(db, filter);
 
             if (filter == null)
             {
@@ -794,11 +777,6 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({players[player]}, {id}
             if (filter.Round != null)
             {
                 query = query.Where(log => log.RoundId == filter.Round);
-            }
-
-            if (filter.Search != null)
-            {
-                query = query.Where(log => log.Message.Contains(filter.Search));
             }
 
             if (filter.Types != null)

@@ -22,9 +22,6 @@ public partial struct StampDisplayInfo
 
     [DataField("stampedColor")]
     public Color StampedColor;
-
-    [DataField("stampedPersonal")]
-    public bool StampedPersonal = false;
 };
 
 [RegisterComponent]
@@ -52,17 +49,4 @@ public sealed partial class StampComponent : Component
     {
         Params = AudioParams.Default.WithVolume(-2f).WithMaxDistance(5f)
     };
-
-    /// <summary>
-    /// The stamp using the person name on it
-    /// </summary>
-    [DataField("stampedPersonal")]
-    public bool StampedPersonal = false;
-
-    [ViewVariables]
-    public EntityUid? StampedIdUser = null;
-
-    [ViewVariables(VVAccess.ReadWrite)]
-    [DataField("nameSetUser")]
-    public bool NameSetUser { get; set; }
 }
