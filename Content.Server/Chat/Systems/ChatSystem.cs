@@ -507,10 +507,10 @@ public sealed partial class ChatSystem : SharedChatSystem
 
         foreach (var (session, data) in GetRecipients(source, WhisperMuffledRange))
         {
-            EntityUid listener;
-
             if (session.AttachedEntity is not { Valid: true } playerEntity)
                 continue;
+
+            EntityUid listener;
             listener = session.AttachedEntity.Value;
 
             if (MessageRangeCheck(session, data, range) != MessageRangeCheckResult.Full)
@@ -702,10 +702,10 @@ public sealed partial class ChatSystem : SharedChatSystem
                 continue;
             var entHideChat = entRange == MessageRangeCheckResult.HideChat;
 
-            EntityUid listener;
-
             if (session.AttachedEntity is not { Valid: true } playerEntity)
                 continue;
+
+            EntityUid listener;
             listener = session.AttachedEntity.Value;
 
             if (Canilunzt && !IsCanilunztListener(listener))
@@ -895,7 +895,9 @@ public sealed partial class ChatSystem : SharedChatSystem
 
     public bool IsCanilunztListener(EntityUid source)
     {
-        if (HasComp<VulpLangaugeListenerComponent>(source) || HasComp<GhostComponent>(source))
+        (if HasComp<VulpLanguageSpeakerComponent>(source)
+           || HasComp<VulpLangaugeListenerComponent>(source)
+           || HasComp<GhostComponent>(source))
         {
             return true;
         }
