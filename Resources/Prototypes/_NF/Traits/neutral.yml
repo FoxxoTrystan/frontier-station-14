@@ -1,0 +1,8 @@
+- type: trait
+  id: Shorttrait
+  name: Short
+  description: trait-short-desc
+  components:
+    - type: HeightAdjusted
+      width: 0.8
+      height: 0.8
