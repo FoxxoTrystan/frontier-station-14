@@ -21,6 +21,21 @@
     {
       "name": "syndie_stun",
       "directions": 8
+    },
+    {
+        "name": "laser"
+    },
+    {
+        "name": "gun"
+    },
+    {
+        "name": "sam",
+        "delays": [
+            [
+              0.5,
+              0.10
+            ]
+        ]
     }
   ]
 }

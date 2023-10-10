@@ -240,3 +240,143 @@
       interactFailureString: petting-failure-generic
       interactSuccessSound:
         path: /Audio/Animals/snake_hiss.ogg
+
+- type: entity
+  parent: BaseWeaponTurret
+  id: BaseWeaponLaserTurret
+  name: laser turret
+  abstract: true
+  components:
+    - type: Sprite
+      sprite: Objects/Weapons/Guns/Turrets/turrets.rsi
+      layers:
+        - state: laser
+    - type: Gun
+      fireRate: 2
+      selectedMode: FullAuto
+      availableModes:
+        - FullAuto
+      soundGunshot: /Audio/Weapons/Guns/Gunshots/laser_cannon.ogg
+    - type: BallisticAmmoProvider
+      proto: WatcherBoltMagmawing
+      capacity: 500
+
+- type: entity
+  parent: BaseWeaponLaserTurret
+  id: WeaponLaserTurretHostile
+  suffix: Hostile
+  components:
+  - type: NpcFactionMember
+    factions:
+    - SimpleHostile
+
+- type: entity
+  parent: BaseWeaponLaserTurret
+  id: BaseWeaponDisablerTurret
+  name: disabler turret
+  abstract: true
+  components:
+    - type: BallisticAmmoProvider
+      proto: BulletDisabler
+      capacity: 500
+
+- type: entity
+  parent: BaseWeaponDisablerTurret
+  id: BaseWeaponDisablerTurretHostile
+  suffix: Hostile
+  components:
+  - type: NpcFactionMember
+    factions:
+    - SimpleHostile
+
+- type: entity
+  parent: BaseWeaponLaserTurret
+  id: BaseWeaponTaserTurret
+  name: taser turret
+  abstract: true
+  components:
+    - type: Gun
+      fireRate: 0.5
+      selectedMode: FullAuto
+      availableModes:
+        - FullAuto
+      soundGunshot: /Audio/Weapons/Guns/Gunshots/laser_cannon.ogg
+    - type: BallisticAmmoProvider
+      proto: BulletTaser
+      capacity: 500
+
+- type: entity
+  parent: BaseWeaponTaserTurret
+  id: BaseWeaponTaserTurretHostile
+  suffix: Hostile
+  components:
+  - type: NpcFactionMember
+    factions:
+    - SimpleHostile
+
+- type: entity
+  parent: BaseWeaponTurret
+  id: BaseWeaponGunTurret
+  name: gun turret
+  abstract: true
+  components:
+    - type: Sprite
+      sprite: Objects/Weapons/Guns/Turrets/turrets.rsi
+      layers:
+        - state: gun
+    - type: Gun
+      fireRate: 0.5
+      selectedMode: FullAuto
+      availableModes:
+        - FullAuto
+      soundGunshot: /Audio/Weapons/Guns/Gunshots/mateba.ogg
+    - type: BallisticAmmoProvider
+      proto: BulletWeakRocket
+      capacity: 500
+
+- type: entity
+  parent: BaseWeaponGunTurret
+  id: BaseWeaponGunTurretHostile
+  suffix: Hostile
+  components:
+  - type: NpcFactionMember
+    factions:
+    - SimpleHostile
+
+- type: entity
+  parent: BaseWeaponGunTurret
+  id: BaseWeaponGunTurretShip
+  suffix: Ship
+  components:
+    - type: HTN
+      rootTask:
+        task: ShipTurretCompound
+
+- type: entity
+  parent: BaseWeaponTurret
+  id: BaseWeaponsamTurret
+  name: sam turret
+  abstract: true
+  components:
+    - type: Sprite
+      sprite: Objects/Weapons/Guns/Turrets/turrets.rsi
+      layers:
+        - state: sam
+    - type: Gun
+      fireRate: 0.25
+      selectedMode: FullAuto
+      availableModes:
+        - FullAuto
+      soundGunshot: /Audio/Weapons/Guns/Gunshots/rpgfire.ogg
+    - type: BallisticAmmoProvider
+      proto: BulletRocket
+      capacity: 500
+
+- type: entity
+  parent: BaseWeaponsamTurret
+  id: BaseWeaponsamTurretHostile
+  suffix: Hostile
+  components:
+  - type: NpcFactionMember
+    factions:
+    - SimpleHostile

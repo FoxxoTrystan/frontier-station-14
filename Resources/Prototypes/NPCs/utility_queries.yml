@@ -156,6 +156,17 @@
     - !type:TargetInLOSOrCurrentCon
       curve: !type:BoolCurve
 
+- type: utilityQuery
+  id: NearbyGunShips
+  query:
+    - !type:ComponentQuery
+      components:
+        - type: Drink
+  considerations:
+    - !type:TargetDistanceCon
+      curve: !type:PresetCurve
+        preset: TargetDistance
+
 #- type: utilityQuery
 #  id: NearbyShoes
 #  query:
