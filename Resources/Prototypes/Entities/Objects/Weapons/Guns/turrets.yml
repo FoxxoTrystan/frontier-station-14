@@ -347,10 +347,6 @@
   parent: BaseWeaponGunTurret
   id: BaseWeaponGunTurretShip
   suffix: Ship
-  components:
-    - type: HTN
-      rootTask:
-        task: ShipTurretCompound
 
 - type: entity
   parent: BaseWeaponTurret
