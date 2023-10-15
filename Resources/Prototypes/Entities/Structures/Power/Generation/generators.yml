@@ -8,6 +8,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Tag
+    tags:
+      - ShipTurretTarget
   - type: AmbientSound
     range: 5
     sound:

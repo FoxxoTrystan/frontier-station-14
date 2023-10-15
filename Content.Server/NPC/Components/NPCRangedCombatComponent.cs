@@ -54,4 +54,7 @@ public sealed partial class NPCRangedCombatComponent : Component
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
     public SoundSpecifier? SoundTargetInLOS;
+
+    [ViewVariables(VVAccess.ReadWrite)]
+    public bool? IngoreObstructed;
 }

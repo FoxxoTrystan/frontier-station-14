@@ -23,6 +23,7 @@
   - type: Tag
     tags:
     - Wooden
+    - ShipTurretTarget
   - type: Damageable
     damageModifierSet: Wood
     damageContainer: Inorganic

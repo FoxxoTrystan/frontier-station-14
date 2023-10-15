@@ -68,6 +68,11 @@ public sealed partial class GunOperator : HTNOperator, IHtnConditionalShutdown
         {
             ranged.SoundTargetInLOS = losSound;
         }
+
+        if (blackboard.TryGetValue<bool>("IngoreObstructed", out var iobstructed, _entManager))
+        {
+            ranged.IngoreObstructed = iobstructed;
+        }
     }
 
     public void ConditionalShutdown(NPCBlackboard blackboard)

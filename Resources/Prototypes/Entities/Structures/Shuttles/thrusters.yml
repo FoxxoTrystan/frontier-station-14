@@ -3,6 +3,9 @@
   parent: BaseStructureDynamic
   abstract: true
   components:
+    - type: Tag
+      tags:
+        - ShipTurretTarget
     - type: AmbientSound
       enabled: false
       range: 4

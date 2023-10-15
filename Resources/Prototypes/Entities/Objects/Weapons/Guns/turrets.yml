@@ -36,6 +36,9 @@
   name: ballistic turret
   abstract: true
   components:
+    - type: Tag
+      tags:
+      - ShipTurretTarget
     - type: Clickable
     - type: InteractionOutline
     - type: Actions
@@ -188,6 +191,18 @@
     - SimpleHostile
 
 - type: entity
+  parent: BaseWeaponTurret
+  id: BaseWeaponTurretShip
+  suffix: Ship
+  components:
+    - type: HTN
+      rootTask:
+        task: ShipTurretCompound
+      blackboard:
+        IngoreObstructed: !type:Bool
+          true
+
+- type: entity
   name: xeno turret
   description: Shoots 9mm acid projectiles
   parent: BaseWeaponTurret
@@ -272,6 +287,18 @@
 
 - type: entity
   parent: BaseWeaponLaserTurret
+  id: BaseWeaponLaserTurretShip
+  suffix: Ship
+  components:
+    - type: HTN
+      rootTask:
+        task: ShipTurretCompound
+      blackboard:
+        IngoreObstructed: !type:Bool
+          true
+
+- type: entity
+  parent: BaseWeaponLaserTurret
   id: BaseWeaponDisablerTurret
   name: disabler turret
   abstract: true
@@ -339,14 +366,21 @@
   id: BaseWeaponGunTurretHostile
   suffix: Hostile
   components:
-  - type: NpcFactionMember
-    factions:
-    - SimpleHostile
+    - type: NpcFactionMember
+      factions:
+      - SimpleHostile
 
 - type: entity
   parent: BaseWeaponGunTurret
   id: BaseWeaponGunTurretShip
   suffix: Ship
+  components:
+    - type: HTN
+      rootTask:
+        task: ShipTurretCompound
+      blackboard:
+        IngoreObstructed: !type:Bool
+          true
 
 - type: entity
   parent: BaseWeaponTurret
@@ -376,3 +410,15 @@
   - type: NpcFactionMember
     factions:
     - SimpleHostile
+
+- type: entity
+  parent: BaseWeaponsamTurret
+  id: BaseWeaponSamTurretShip
+  suffix: Ship
+  components:
+    - type: HTN
+      rootTask:
+        task: ShipTurretCompound
+      blackboard:
+        IngoreObstructed: !type:Bool
+          true

@@ -6,6 +6,9 @@
   placement:
     mode: AlignTileAny
   components:
+  - type: Tag
+    tags:
+      - ShipTurretTarget
   - type: AmbientSound
     enabled: false
     volume: -6

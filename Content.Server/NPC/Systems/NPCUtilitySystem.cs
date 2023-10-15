@@ -24,6 +24,7 @@ using Robust.Server.Containers;
 using Robust.Shared.Collections;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
+using Content.Shared.Tag;
 
 namespace Content.Server.NPC.Systems;
 
@@ -44,6 +45,7 @@ public sealed class NPCUtilitySystem : EntitySystem
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SolutionContainerSystem _solutions = default!;
     [Dependency] private readonly WeldableSystem _weldable = default!;
+    [Dependency] private readonly TagSystem _tag = default!;
 
     private EntityQuery<TransformComponent> _xformQuery;
 
@@ -392,6 +394,31 @@ public sealed class NPCUtilitySystem : EntitySystem
             {
                 foreach (var ent in _npcFaction.GetNearbyHostiles(owner, vision))
                 {
+                    entities.Add(ent);
+                }
+                break;
+            }
+            case NearbyHostileGridQuery:
+            {
+                foreach (var ent in _lookup.GetEntitiesInRange(owner, vision))
+                {
+                    if (ent == owner)
+                        continue;
+
+                    if (!_tag.HasTag(ent, "ShipTurretTarget"))
+                        continue;
+
+                    if (TryComp<TransformComponent>(owner, out var xform))
+                    {
+                        if (TryComp<TransformComponent>(ent, out var xform2))
+                        {
+                            if (xform.GridUid == xform2.GridUid)
+                            {
+                                continue;
+                            }
+                        }
+                    }
+
                     entities.Add(ent);
                 }
                 break;

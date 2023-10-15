@@ -5,6 +5,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Tag
+    tags:
+      - ShipTurretTarget
   - type: MeleeSound
     soundGroups:
       Brute:

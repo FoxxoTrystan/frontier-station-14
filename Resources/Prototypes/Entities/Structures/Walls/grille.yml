@@ -12,6 +12,7 @@
     - type: Tag
       tags:
         - RCDDeconstructWhitelist
+        - ShipTurretTarget
     - type: CanBuildWindowOnTop
     - type: Sprite
       drawdepth: Walls

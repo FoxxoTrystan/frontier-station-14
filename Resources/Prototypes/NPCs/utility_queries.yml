@@ -156,6 +156,19 @@
     - !type:TargetInLOSOrCurrentCon
       curve: !type:BoolCurve
 
+- type: utilityQuery
+  id: NearbyGridTargets
+  query:
+    - !type:NearbyHostileGridQuery
+  considerations:
+    - !type:TargetDistanceCon
+      curve: !type:PresetCurve
+        preset: TargetDistance
+    - !type:TargetAccessibleCon
+      curve: !type:BoolCurve
+    - !type:TargetInLOSOrCurrentCon
+      curve: !type:BoolCurve
+
 #- type: utilityQuery
 #  id: NearbyShoes
 #  query:

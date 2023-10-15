@@ -7,6 +7,9 @@
   suffix: Low Ore Yield
   description: A rocky asteroid.
   components:
+  - type: Tag
+    tags:
+    - ShipTurretTarget
   - type: SoundOnGather
   - type: Gatherable
     whitelist:
@@ -110,6 +113,9 @@
   parent: BaseStructure
   name: rock
   components:
+    - type: Tag
+      tags:
+        - ShipTurretTarget
     - type: SoundOnGather
     - type: Gatherable
       whitelist:

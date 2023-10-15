@@ -51,6 +51,9 @@
   name: solar panel
   description: A solar panel that generates power.
   components:
+  - type: Tag
+    tags:
+      - ShipTurretTarget
   - type: PowerSupplier
     supplyRampTolerance: 500
     supplyRampRate: 500
