@@ -1000,7 +1000,7 @@
 
 - type: Tag
   id: WallmountSubstationElectronics
-  
+
 - type: Tag
   id: WeaponPistolCHIMPUpgradeKit
 
@@ -1036,3 +1036,6 @@
 
 - type: Tag
   id: ModularReceiver
+
+- type: Tag
+  id: ShipTurretTarget
