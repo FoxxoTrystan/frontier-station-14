@@ -91,6 +91,7 @@
     tags:
       - Wall
       - RCDDeconstructWhitelist
+      - ShipTurretTarget
   - type: Sprite
     sprite: Structures/Walls/clock.rsi
   - type: Icon
@@ -121,6 +122,7 @@
     tags:
       - Wall
       - RCDDeconstructWhitelist
+      - ShipTurretTarget
   - type: Sprite
     sprite: Structures/Walls/clown.rsi
   - type: Icon
@@ -156,6 +158,7 @@
       - RCDDeconstructWhitelist
       - Wall
       - Structure
+      - ShipTurretTarget
   - type: Sprite
     sprite: Structures/Walls/meat.rsi
   - type: Icon
@@ -189,6 +192,7 @@
     tags:
       - RCDDeconstructWhitelist
       - Wall
+      - ShipTurretTarget
   - type: Sprite
     sprite: Structures/Walls/cult.rsi
   - type: Icon
@@ -251,6 +255,7 @@
     tags:
       - Wall
       - RCDDeconstructWhitelist
+      - ShipTurretTarget
   - type: Sprite
     sprite: Structures/Walls/diamond.rsi
   - type: Icon
@@ -281,6 +286,7 @@
     tags:
       - Wall
       - RCDDeconstructWhitelist
+      - ShipTurretTarget
   - type: Sprite
     sprite: Structures/Walls/gold.rsi
   - type: Icon
@@ -322,6 +328,7 @@
     tags:
       - Wall
       - RCDDeconstructWhitelist
+      - ShipTurretTarget
   - type: Sprite
     sprite: Structures/Walls/ice.rsi
   - type: Icon
@@ -352,6 +359,7 @@
     tags:
       - Wall
       - RCDDeconstructWhitelist
+      - ShipTurretTarget
   - type: Sprite
     sprite: Structures/Walls/plasma.rsi
   - type: Icon
@@ -393,6 +401,7 @@
     tags:
       - Wall
       - RCDDeconstructWhitelist
+      - ShipTurretTarget
   - type: Sprite
     sprite: Structures/Walls/plastic.rsi
   - type: Icon
@@ -453,6 +462,7 @@
     - type: Tag
       tags:
         - Wall
+        - ShipTurretTarget
     - type: Destructible
       thresholds:
         - trigger:
@@ -552,6 +562,7 @@
     tags:
       - Wall
       - RCDDeconstructWhitelist
+      - ShipTurretTarget
   - type: Sprite
     sprite: Structures/Walls/riveted.rsi
   - type: Icon
@@ -584,6 +595,7 @@
     tags:
       - Wall
       - RCDDeconstructWhitelist
+      - ShipTurretTarget
   - type: Sprite
     sprite: Structures/Walls/sandstone.rsi
   - type: Icon
@@ -614,6 +626,7 @@
     tags:
       - Wall
       - RCDDeconstructWhitelist
+      - ShipTurretTarget
   - type: Sprite
     sprite: Structures/Walls/silver.rsi
   - type: Icon
@@ -662,6 +675,7 @@
   - type: Tag
     tags:
     - Wall
+    - ShipTurretTarget
   - type: Sprite
     drawdepth: Walls
     sprite: Structures/Walls/shuttle_diagonal.rsi
@@ -728,6 +742,7 @@
     tags:
       - Wall
       - RCDDeconstructWhitelist
+      - ShipTurretTarget
   - type: Sprite
     sprite: Structures/Walls/shuttle.rsi
   - type: Icon
@@ -766,6 +781,7 @@
     tags:
       - Wall
       - RCDDeconstructWhitelist
+      - ShipTurretTarget
   - type: Sprite
     sprite: Structures/Walls/solid.rsi
   - type: Construction
@@ -951,6 +967,7 @@
     tags:
       - Wall
       - RCDDeconstructWhitelist
+      - ShipTurretTarget
   - type: Sprite
     sprite: Structures/Walls/web.rsi
   - type: Icon
@@ -986,6 +1003,7 @@
   - type: Tag
     tags:
       - Wall
+      - ShipTurretTarget
   - type: Sprite
     sprite: Structures/Walls/necropolis.rsi
   - type: Icon
@@ -1010,6 +1028,7 @@
   - type: Tag
     tags:
       - Wall
+      - ShipTurretTarget
   - type: Sprite
     sprite: Structures/Walls/mining.rsi
   - type: Icon
