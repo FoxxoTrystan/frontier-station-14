@@ -60,6 +60,7 @@
 
 - type: entity
   id: Thruster
+  name: thruster
   parent: [ BaseThruster, ConstructibleMachine ]
   components:
   - type: Thruster
@@ -79,6 +80,16 @@
       shader: unshaded
       visible: false
       offset: 0, 1
+
+- type: entity
+  id: ThrusterUnanchored
+  parent: Thruster
+  suffix: Unanchored
+  components:
+    - type: Transform
+      anchored: false
+    - type: Physics
+      bodyType: Dynamic
 
 - type: entity
   id: DebugThruster
@@ -107,6 +118,7 @@
 
 - type: entity
   id: Gyroscope
+  name: gyroscope
   parent: [ BaseThruster, ConstructibleMachine ]
   components:
   - type: Thruster
@@ -148,6 +160,16 @@
     scaling: Exponential
   - type: StaticPrice
     price: 2000
+
+- type: entity
+  id: GyroscopeUnanchored
+  parent: Gyroscope
+  suffix: Unanchored
+  components:
+    - type: Transform
+      anchored: false
+    - type: Physics
+      bodyType: Dynamic
 
 - type: entity
   id: DebugGyroscope
