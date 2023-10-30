@@ -184,7 +184,7 @@
   - type: Produce
     seedId: deathNettle
   - type: MeleeChemicalInjector
-    transferAmount: 6 
+    transferAmount: 6
     solution: food
     pierceArmor: true # We do a little trolling
   - type: Extractable
@@ -222,7 +222,7 @@
   - type: Tag
     tags:
     - Fruit
-    
+
 - type: entity
   name: mimana
   parent: FoodProduceBase
@@ -314,7 +314,7 @@
     state: peel
   - type: Item
     sprite: Objects/Specific/Hydroponics/mimana.rsi
-    heldPrefix: peel  
+    heldPrefix: peel
   - type: Slippery
     slipSound:
       path: /Audio/Effects/slip.ogg
@@ -696,6 +696,7 @@
   - type: Tag
     tags:
     - Fruit # Fuck you they're a fruit
+    - BloodFood
 
 - type: entity
   name: eggplant
@@ -1234,7 +1235,7 @@
   - type: Tag
     tags:
     - Galaxythistle
-    - Fruit # Probably? 
+    - Fruit # Probably?
 
 - type: entity
   name: fly amanita
