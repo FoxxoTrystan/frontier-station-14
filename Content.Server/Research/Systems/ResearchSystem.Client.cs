@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Research.Components;
+using Robust.Server.Player;
 
 namespace Content.Server.Research.Systems;
 
@@ -46,7 +47,7 @@ public sealed partial class ResearchSystem
         if (!this.IsPowered(uid, EntityManager))
             return;
 
-        _uiSystem.TryToggleUi(uid, ResearchClientUiKey.Key, args.Session);
+        _uiSystem.TryToggleUi(uid, ResearchClientUiKey.Key, (IPlayerSession) args.Session);
     }
     #endregion
 

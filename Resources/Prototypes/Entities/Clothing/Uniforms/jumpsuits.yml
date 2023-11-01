@@ -1,13 +1,20 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitDeathSquad
-  name: death squad uniform
+  name: Death squad uniform
   description: Advanced armored jumpsuit used by special forces in special operations.
   components:
   - type: Sprite
     sprite: Clothing/Uniforms/Jumpsuit/deathsquad.rsi
   - type: Clothing
     sprite: Clothing/Uniforms/Jumpsuit/deathsquad.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.8
+        Slash: 0.8
+        Piercing: 0.8
+        Heat: 0.8
 
 - type: entity
   parent: ClothingUniformBase
@@ -1083,6 +1090,10 @@
     sprite: Clothing/Uniforms/Jumpsuit/ert_engineer.rsi
   - type: Clothing
     sprite: Clothing/Uniforms/Jumpsuit/ert_engineer.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Radiation: 0.8
 
 - type: entity
   parent: ClothingUniformBase
@@ -1105,6 +1116,12 @@
     sprite: Clothing/Uniforms/Jumpsuit/ert_leader.rsi
   - type: Clothing
     sprite: Clothing/Uniforms/Jumpsuit/ert_leader.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.8
+        Slash: 0.8
+        Piercing: 0.8
 
 - type: entity
   parent: ClothingUniformBase
@@ -1127,6 +1144,12 @@
     sprite: Clothing/Uniforms/Jumpsuit/ert_security.rsi
   - type: Clothing
     sprite: Clothing/Uniforms/Jumpsuit/ert_security.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.8
+        Slash: 0.8
+        Piercing: 0.8
 
 - type: entity
   parent: ClothingUniformJumpsuitClown

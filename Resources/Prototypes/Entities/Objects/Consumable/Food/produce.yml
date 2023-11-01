@@ -556,9 +556,6 @@
       reagents:
       - ReagentId: JuicePotato
         Quantity: 10
-  - type: Tag
-    tags:
-    - Potato
 
 - type: entity
   name: tomato

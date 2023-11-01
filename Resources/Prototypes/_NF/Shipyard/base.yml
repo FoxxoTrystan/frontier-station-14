@@ -74,14 +74,22 @@
   abstract: true
   components:
   - type: SiliconLawProvider
-    laws: NTDefault
+    laws:
+    - NTDefault1
+    - NTDefault2
+    - NTDefault3
+    - NTDefault4
 
 - type: entity
   id: BaseStationSiliconLawFrontierShips
   abstract: true
   components:
   - type: SiliconLawProvider
-    laws: Corporate
+    laws:
+    - Corporate1
+    - Corporate2
+    - Corporate3
+    - Corporate4
 
 - type: entity
   id: BaseStationRenameFaxes

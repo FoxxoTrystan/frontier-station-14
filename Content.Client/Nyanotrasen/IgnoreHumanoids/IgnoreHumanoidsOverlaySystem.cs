@@ -2,6 +2,7 @@ using Content.Shared.IgnoreHumanoids;
 using Content.Shared.GameTicking;
 using Robust.Client.Player;
 using Robust.Client.Graphics;
+using Robust.Client.GameObjects;
 using Robust.Shared.Prototypes;
 
 namespace Content.Client.IgnoreHumanoids
@@ -19,8 +20,8 @@ namespace Content.Client.IgnoreHumanoids
 
             SubscribeLocalEvent<IgnoreHumanoidsOverlayComponent, ComponentInit>(OnInit);
             SubscribeLocalEvent<IgnoreHumanoidsOverlayComponent, ComponentRemove>(OnRemove);
-            SubscribeLocalEvent<IgnoreHumanoidsOverlayComponent, LocalPlayerAttachedEvent>(OnPlayerAttached);
-            SubscribeLocalEvent<IgnoreHumanoidsOverlayComponent, LocalPlayerDetachedEvent>(OnPlayerDetached);
+            SubscribeLocalEvent<IgnoreHumanoidsOverlayComponent, PlayerAttachedEvent>(OnPlayerAttached);
+            SubscribeLocalEvent<IgnoreHumanoidsOverlayComponent, PlayerDetachedEvent>(OnPlayerDetached);
             SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart);
 
             _overlay = new(EntityManager, _protoMan);
@@ -44,12 +45,12 @@ namespace Content.Client.IgnoreHumanoids
             }
         }
 
-        private void OnPlayerAttached(EntityUid uid, IgnoreHumanoidsOverlayComponent component, LocalPlayerAttachedEvent args)
+        private void OnPlayerAttached(EntityUid uid, IgnoreHumanoidsOverlayComponent component, PlayerAttachedEvent args)
         {
             _overlayMan.AddOverlay(_overlay);
         }
 
-        private void OnPlayerDetached(EntityUid uid, IgnoreHumanoidsOverlayComponent component, LocalPlayerDetachedEvent args)
+        private void OnPlayerDetached(EntityUid uid, IgnoreHumanoidsOverlayComponent component, PlayerDetachedEvent args)
         {
             _overlay.Reset();
             _overlayMan.RemoveOverlay(_overlay);
